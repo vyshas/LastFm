@@ -23,17 +23,11 @@ class AlbumDetailsFragment : Fragment(), Injectable {
 
     private var albumDetailsViewModel: AlbumDetailsViewModel? = null
 
-    var layoutView: View? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_album_details, container, false)
-
-        layoutView = view
-
-        return view
+        return inflater.inflate(R.layout.fragment_album_details, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -42,14 +36,13 @@ class AlbumDetailsFragment : Fragment(), Injectable {
 
         val args = arguments
         if (args != null && args.containsKey(ALBUM_ID_KEY)) {
-            albumDetailsViewModel!!.loadAlbumById(args.getLong(ALBUM_ID_KEY)).observe(viewLifecycleOwner, Observer { album ->
+            albumDetailsViewModel!!.loadAlbumById(args.getLong(ALBUM_ID_KEY))?.observe(viewLifecycleOwner, Observer { album ->
                 updateUi(album)
             })
         }
     }
 
     private fun updateUi(album: Album?) {
-
         album_detail.text = album?.name
         artist_name.text = album?.artist
         track_detail.text = album?.url

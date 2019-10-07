@@ -9,8 +9,8 @@ import com.example.testlastfm.AppExecutors;
 import com.example.testlastfm.BuildConfig;
 import com.example.testlastfm.api.ApiResponse;
 import com.example.testlastfm.api.LastFmService;
-import com.example.testlastfm.db.LastFmDb;
 import com.example.testlastfm.db.LastFmDao;
+import com.example.testlastfm.db.LastFmDb;
 import com.example.testlastfm.model.Album;
 import com.example.testlastfm.model.AlbumSearchRes;
 import com.example.testlastfm.model.AlbumSearchResponse;
@@ -47,7 +47,7 @@ public class SearchRepository {
 
                 List<Album> albums = item.getAlbumResults().getAlbummatches().getAlbum();
                 //set Images
-                for (Album album: albums) {
+                for (Album album : albums) {
                     album.albumImage = album.getImage().get(2).getText();
                 }
 
@@ -96,8 +96,6 @@ public class SearchRepository {
 
 
     public LiveData<Album> loadAlbum(Long albumId) {
-
-       return lastFmDao.loadAlbumById(albumId);
-
+        return lastFmDao.loadAlbumById(albumId);
     }
 }

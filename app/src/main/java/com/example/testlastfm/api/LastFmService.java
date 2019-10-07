@@ -20,5 +20,4 @@ public interface LastFmService {
     @GET("?method=album.search&format=json")
     LiveData<ApiResponse<AlbumSearchResponse>> getAlbum(@Query("album") String album, @Query("api_key") String api_key);
 
-
 }

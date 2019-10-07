@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Converters {
 
-
     @TypeConverter
     public static List<String> fromString(String value) {
         Type listType = new TypeToken<List<String>>() {}.getType();
@@ -58,6 +57,5 @@ public class Converters {
     public static String longListToString(List<Long> longs) {
         return new Gson().toJson(longs);
     }
-
 
 }

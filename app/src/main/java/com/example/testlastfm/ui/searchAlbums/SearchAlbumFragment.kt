@@ -20,15 +20,11 @@ import com.example.testlastfm.AppExecutors
 import com.example.testlastfm.R
 import com.example.testlastfm.dependencyinjection.Injectable
 import com.example.testlastfm.ui.common.NavigationController
+import kotlinx.android.synthetic.main.fragment_search_album.*
 import kotlinx.android.synthetic.main.fragment_search_album.view.*
 import javax.inject.Inject
 
 class SearchAlbumFragment : Fragment(), Injectable {
-
-
-    private lateinit var viewModel: SearchAlbumViewModel
-
-    private var searchAlbumAdapter: SearchAlbumAdapter? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -39,10 +35,14 @@ class SearchAlbumFragment : Fragment(), Injectable {
     @Inject
     lateinit var navigationController: NavigationController
 
-    private var layoutView: View? = null
+    private lateinit var viewModel: SearchAlbumViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private var searchAlbumAdapter: SearchAlbumAdapter? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_search_album, container, false)
 
         val recyclerView = view.album_recycler_view
@@ -55,9 +55,6 @@ class SearchAlbumFragment : Fragment(), Injectable {
 
             }
         }
-
-        layoutView = view
-
         return view
     }
 
@@ -68,11 +65,10 @@ class SearchAlbumFragment : Fragment(), Injectable {
         initList()
 
         initSearchInputListener()
-
     }
 
     private fun initSearchInputListener() {
-        layoutView?.input?.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->
+        input?.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 doSearch(view)
                 true
@@ -81,7 +77,7 @@ class SearchAlbumFragment : Fragment(), Injectable {
             }
         }
 
-        layoutView?.input?.setOnKeyListener { view: View, keyCode: Int, event: KeyEvent ->
+        input?.setOnKeyListener { view: View, keyCode: Int, event: KeyEvent ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 doSearch(view)
                 true
@@ -89,11 +85,10 @@ class SearchAlbumFragment : Fragment(), Injectable {
                 false
             }
         }
-
     }
 
     private fun doSearch(view: View) {
-        val query = layoutView?.input?.text.toString()
+        val query = input?.text.toString()
 
         dismissKeyboard(view.windowToken)
         viewModel.setQuery(query)
@@ -101,7 +96,7 @@ class SearchAlbumFragment : Fragment(), Injectable {
 
     private fun initList() {
 
-        layoutView?.album_recycler_view?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        album_recycler_view?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastPosition = layoutManager.findLastVisibleItemPosition()
@@ -110,12 +105,10 @@ class SearchAlbumFragment : Fragment(), Injectable {
         })
 
         viewModel.results.observe(this, Observer { result -> searchAlbumAdapter?.submitList(result?.data) })
-
     }
 
     private fun dismissKeyboard(windowToken: IBinder) {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.hideSoftInputFromWindow(windowToken, 0)
     }
-
 }
