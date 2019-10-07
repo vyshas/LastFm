@@ -13,29 +13,27 @@ import dagger.android.HasActivityInjector;
 
 public class TestLastFm extends Application implements HasActivityInjector {
 
-  @Inject
-  DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
+        AppInjector.init(this);
 
-  @Override public void onCreate() {
-    super.onCreate();
+        initSonar();
 
+    }
 
-   AppInjector.init(this);
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
+    }
 
-   initSonar();
+    private void initSonar() {
 
+        Stetho.initializeWithDefaults(this);
 
-  }
-
-  @Override public DispatchingAndroidInjector<Activity> activityInjector() {
-    return dispatchingAndroidInjector;
-  }
-
-  private void initSonar(){
-
-    Stetho.initializeWithDefaults(this);
-
-  }
+    }
 }

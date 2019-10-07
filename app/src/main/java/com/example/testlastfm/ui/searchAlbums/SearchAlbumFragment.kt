@@ -1,4 +1,4 @@
-package com.example.testlastfm.ui.SearchAlbums
+package com.example.testlastfm.ui.searchAlbums
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -39,7 +39,7 @@ class SearchAlbumFragment : Fragment(), Injectable {
     @Inject
     lateinit var navigationController: NavigationController
 
-    var layoutView: View? = null
+    private var layoutView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -69,9 +69,7 @@ class SearchAlbumFragment : Fragment(), Injectable {
 
         initSearchInputListener()
 
-
     }
-
 
     private fun initSearchInputListener() {
         layoutView?.input?.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->
@@ -112,7 +110,6 @@ class SearchAlbumFragment : Fragment(), Injectable {
         })
 
         viewModel.results.observe(this, Observer { result -> searchAlbumAdapter?.submitList(result?.data) })
-
 
     }
 

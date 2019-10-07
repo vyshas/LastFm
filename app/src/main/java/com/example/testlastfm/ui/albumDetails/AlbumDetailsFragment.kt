@@ -1,4 +1,4 @@
-package com.example.testlastfm.ui.AlbumDetails
+package com.example.testlastfm.ui.albumDetails
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -19,16 +19,16 @@ import javax.inject.Inject
 
 class AlbumDetailsFragment : Fragment(), Injectable {
 
-    private var albumDetailsViewModel: AlbumDetailsViewModel? = null
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private var albumDetailsViewModel: AlbumDetailsViewModel? = null
 
     var layoutView: View? = null
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_album_details, container, false)
 
         layoutView = view
@@ -42,33 +42,28 @@ class AlbumDetailsFragment : Fragment(), Injectable {
 
         val args = arguments
         if (args != null && args.containsKey(ALBUM_ID_KEY)) {
-            albumDetailsViewModel!!.loadAlbumById(args.getLong(ALBUM_ID_KEY)).observe(viewLifecycleOwner, Observer {
-                album ->  updateUi(album)
+            albumDetailsViewModel!!.loadAlbumById(args.getLong(ALBUM_ID_KEY)).observe(viewLifecycleOwner, Observer { album ->
+                updateUi(album)
             })
         }
-
-
     }
 
-    fun updateUi(album: Album?) {
+    private fun updateUi(album: Album?) {
 
-       album_detail.text = album?.name
-       artist_name.text = album?.artist
-       track_detail.text = album?.url
+        album_detail.text = album?.name
+        artist_name.text = album?.artist
+        track_detail.text = album?.url
         //load image
-       Glide.with(this).load(album?.albumImage).centerCrop().into(detail_image)
-
-
+        Glide.with(this).load(album?.albumImage).centerCrop().into(detail_image)
     }
 
     companion object {
 
-        private val ALBUM_ID_KEY = "album_id"
+        private const val ALBUM_ID_KEY = "album_id"
 
         fun newInstance(): AlbumDetailsFragment {
             return AlbumDetailsFragment()
         }
-
 
         fun create(albumId: Long?): AlbumDetailsFragment {
             val albumDetailsFragment = AlbumDetailsFragment()
@@ -78,7 +73,5 @@ class AlbumDetailsFragment : Fragment(), Injectable {
             return albumDetailsFragment
         }
     }
-
-
 }
 

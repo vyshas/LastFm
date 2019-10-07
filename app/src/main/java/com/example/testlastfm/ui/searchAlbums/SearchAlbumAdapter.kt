@@ -1,4 +1,4 @@
-package com.example.testlastfm.ui.SearchAlbums
+package com.example.testlastfm.ui.searchAlbums
 
 import android.support.v7.recyclerview.extensions.AsyncDifferConfig
 import android.support.v7.recyclerview.extensions.ListAdapter
@@ -13,11 +13,13 @@ import com.example.testlastfm.R
 import com.example.testlastfm.model.Album
 import kotlinx.android.synthetic.main.item_search_album.view.*
 
-
-class SearchAlbumAdapter(appExecutors: AppExecutors, private val albumClickCallback: ((Album) -> Unit)?)
-    : ListAdapter<Album, SearchAlbumAdapter.ViewHolder>(AsyncDifferConfig.Builder<Album>(DiffCallback())
+class SearchAlbumAdapter(
+    appExecutors: AppExecutors, private val albumClickCallback: ((Album) -> Unit)?
+) : ListAdapter<Album, SearchAlbumAdapter.ViewHolder>(
+    AsyncDifferConfig.Builder<Album>(DiffCallback())
         .setBackgroundThreadExecutor(appExecutors.diskIO())
-        .build()) {
+        .build()
+) {
 
     private val onClickListener: View.OnClickListener
 
@@ -28,12 +30,9 @@ class SearchAlbumAdapter(appExecutors: AppExecutors, private val albumClickCallb
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchAlbumAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_album, parent, false)
         return ViewHolder(view)
-
     }
 
     override fun onBindViewHolder(holder: SearchAlbumAdapter.ViewHolder, position: Int) {
@@ -46,13 +45,11 @@ class SearchAlbumAdapter(appExecutors: AppExecutors, private val albumClickCallb
             tag = item
             setOnClickListener(onClickListener)
         }
-
     }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val artistNameView: TextView = view.artist_name
         val albumNameView: TextView = view.album_name
-
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Album>() {
@@ -61,10 +58,7 @@ class SearchAlbumAdapter(appExecutors: AppExecutors, private val albumClickCallb
         }
 
         override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
-            return oldItem == newItem        }
-
-
+            return oldItem == newItem
+        }
     }
-
-
 }

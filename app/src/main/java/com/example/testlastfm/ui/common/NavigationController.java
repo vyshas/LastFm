@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 
 import com.example.testlastfm.MainActivity;
 import com.example.testlastfm.R;
-import com.example.testlastfm.ui.AlbumDetails.AlbumDetailsFragment;
-import com.example.testlastfm.ui.SearchAlbums.SearchAlbumFragment;
+import com.example.testlastfm.ui.albumDetails.AlbumDetailsFragment;
+import com.example.testlastfm.ui.searchAlbums.SearchAlbumFragment;
 
 import javax.inject.Inject;
 

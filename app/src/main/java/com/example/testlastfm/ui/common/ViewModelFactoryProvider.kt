@@ -2,8 +2,8 @@ package com.example.testlastfm.ui.common
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.example.testlastfm.ui.AlbumDetails.AlbumDetailsViewModel
-import com.example.testlastfm.ui.SearchAlbums.SearchAlbumViewModel
+import com.example.testlastfm.ui.albumDetails.AlbumDetailsViewModel
+import com.example.testlastfm.ui.searchAlbums.SearchAlbumViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module

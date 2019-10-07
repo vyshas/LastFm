@@ -1,4 +1,4 @@
-package com.example.testlastfm.ui.AlbumDetails;
+package com.example.testlastfm.ui.albumDetails;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -23,11 +23,8 @@ public class AlbumDetailsViewModel extends ViewModel {
         this.searchRepository = searchRepository;
     }
 
-
-
-    public LiveData<Album> loadAlbumById(Long albumId){
+    public LiveData<Album> loadAlbumById(Long albumId) {
         return searchRepository.loadAlbum(albumId);
     }
-
 
 }

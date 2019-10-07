@@ -1,4 +1,4 @@
-package com.example.testlastfm.ui.SearchAlbums
+package com.example.testlastfm.ui.searchAlbums
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -12,7 +12,6 @@ import java.util.*
 import javax.inject.Inject
 
 class SearchAlbumViewModel @Inject constructor(private val searchRepository: SearchRepository) : ViewModel() {
-
 
     private val query = MutableLiveData<String>()
 
@@ -35,7 +34,6 @@ class SearchAlbumViewModel @Inject constructor(private val searchRepository: Sea
     }
 
 
-
     fun refresh() {
         query.value?.let {
             query.value = it
@@ -54,6 +52,5 @@ class SearchAlbumViewModel @Inject constructor(private val searchRepository: Sea
                 return errorMessage
             }
     }
-
 
 }

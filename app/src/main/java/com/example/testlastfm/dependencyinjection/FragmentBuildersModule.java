@@ -1,7 +1,7 @@
 package com.example.testlastfm.dependencyinjection;
 
-import com.example.testlastfm.ui.AlbumDetails.AlbumDetailsFragment;
-import com.example.testlastfm.ui.SearchAlbums.SearchAlbumFragment;
+import com.example.testlastfm.ui.albumDetails.AlbumDetailsFragment;
+import com.example.testlastfm.ui.searchAlbums.SearchAlbumFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -14,6 +14,5 @@ public abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract AlbumDetailsFragment albumDetailsFragment();
-
 
 }
